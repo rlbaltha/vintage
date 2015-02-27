@@ -17,6 +17,12 @@ class PointType extends AbstractType
         $builder
             ->add('title')
             ->add('body')
+            ->add('map', 'entity', array('class' => 'AppBundle:Map',
+                'property' => 'title','expanded'=>false,'multiple'=>false,'label'  => 'Select Map', 'required'=> false,'attr' => array('class' =>
+                    'form-control'),))
+            ->add('location', 'entity', array('class' => 'AppBundle:Location',
+                'property' => 'title','expanded'=>false,'multiple'=>false,'label'  => 'Select Location', 'required'=> false,'attr' => array('class' =>
+                    'form-control'),))
         ;
     }
     

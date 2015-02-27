@@ -35,6 +35,18 @@ class Map
      */
     private $description;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="background", type="text")
+     */
+    private $background;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Point", mappedBy="map")
+     */
+    protected $points;
+
 
     /**
      * Get id
@@ -90,5 +102,68 @@ class Map
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * Set background
+     *
+     * @param string $background
+     * @return Map
+     */
+    public function setBackground($background)
+    {
+        $this->background = $background;
+
+        return $this;
+    }
+
+    /**
+     * Get background
+     *
+     * @return string 
+     */
+    public function getBackground()
+    {
+        return $this->background;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->points = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add points
+     *
+     * @param \AppBundle\Entity\Point $points
+     * @return Map
+     */
+    public function addPoint(\AppBundle\Entity\Point $points)
+    {
+        $this->points[] = $points;
+
+        return $this;
+    }
+
+    /**
+     * Remove points
+     *
+     * @param \AppBundle\Entity\Point $points
+     */
+    public function removePoint(\AppBundle\Entity\Point $points)
+    {
+        $this->points->removeElement($points);
+    }
+
+    /**
+     * Get points
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPoints()
+    {
+        return $this->points;
     }
 }

@@ -1,47 +1,17 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h1>Location list</h1>
-
-    <table class="records_list">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Lat</th>
-                <th>Lng</th>
-                <th>Title</th>
-                <th>Description</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for entity in entities %}
-            <tr>
-                <td><a href="{{ path('location_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td>{{ entity.lat }}</td>
-                <td>{{ entity.lng }}</td>
-                <td>{{ entity.title }}</td>
-                <td>{{ entity.description }}</td>
-                <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('location_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('location_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-        <ul>
-        <li>
-            <a href="{{ path('location_new') }}">
-                Create a new entry
+    {% for entity in entities %}
+        <div class="list-group">
+            <a href="{{ path('location_show', { 'id': entity.id }) }}" class="list-group-item active">
+                <h4 class="list-group-item-heading">{{ entity.title }}</h4>
+                <p class="list-group-item-text">{{ entity.description }}</p>
             </a>
-        </li>
-    </ul>
+        </div>
+    {% endfor %}
+
+    <a href="{{ path('location_new') }}">
+        Create a new entry
+    </a>
+
     {% endblock %}

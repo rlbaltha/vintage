@@ -124,6 +124,26 @@ class MapController extends Controller
         );
     }
 
+
+    /**
+     * Lists all Map entities.
+     *
+     * @Route("/{map}/map_json", name="json")
+     * @Method("GET")
+     * @Template()
+     */
+    public function jsonAction($map)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entities = $em->getRepository('AppBundle:Map')->map_json($map);
+        $serializer = $this->container->get('serializer');
+        $response = new Response($serializer->serialize($entities, 'json'));
+        return $response;
+    }
+
+
+
     /**
      * Displays a form to edit an existing Map entity.
      *

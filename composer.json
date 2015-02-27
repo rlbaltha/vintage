@@ -18,7 +18,13 @@
         "symfony/monolog-bundle": "~2.4",
         "sensio/distribution-bundle": "~3.0,>=3.0.12",
         "sensio/framework-extra-bundle": "~3.0,>=3.0.2",
-        "incenteev/composer-parameter-handler": "~2.0"
+        "incenteev/composer-parameter-handler": "~2.0",
+        "oyejorge/less.php": "~1.5",
+        "vich/uploader-bundle": "0.9.0",
+        "components/jquery": "2.1.*",
+        "components/jqueryui": "1.11.*",
+        "twbs/bootstrap" : "*",
+        "packagist/yuicompressor-bin": "dev-master"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

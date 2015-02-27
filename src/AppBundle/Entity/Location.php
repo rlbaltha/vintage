@@ -49,6 +49,11 @@ class Location
      */
     private $description;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Point", mappedBy="location")
+     */
+    protected $points;
+
 
     /**
      * Get id
@@ -150,5 +155,45 @@ class Location
     public function getDescription()
     {
         return $this->description;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->points = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add points
+     *
+     * @param \AppBundle\Entity\Point $points
+     * @return Location
+     */
+    public function addPoint(\AppBundle\Entity\Point $points)
+    {
+        $this->points[] = $points;
+
+        return $this;
+    }
+
+    /**
+     * Remove points
+     *
+     * @param \AppBundle\Entity\Point $points
+     */
+    public function removePoint(\AppBundle\Entity\Point $points)
+    {
+        $this->points->removeElement($points);
+    }
+
+    /**
+     * Get points
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPoints()
+    {
+        return $this->points;
     }
 }
