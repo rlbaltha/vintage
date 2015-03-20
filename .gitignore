@@ -10,9 +10,5 @@
 /vendor/
 /bin/
 /composer.phar
-<<<<<<< Updated upstream
 .idea
-=======
-./idea
 
->>>>>>> Stashed changes

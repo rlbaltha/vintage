@@ -4,12 +4,11 @@
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}
-            {% stylesheets '@bootstrap_less' combine=true  output='css/compiled/main.css' %}
-            <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>{% endstylesheets %}
-            <link type="text/css" rel="stylesheet" href="{{ asset('bundles/app/css/local.css') }}">
+            <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
         {% endblock %}
         {% block javascripts %}
             <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+            <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
@@ -38,10 +37,10 @@
                     <li><a href="{{ path('point') }}">Points</a></li>
                     <li><a href="#">Live</a></li>
                 </ul>
+
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
     </nav>
-
 
         {% block body %}{% endblock %}
     </body>
