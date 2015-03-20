@@ -9,9 +9,7 @@
             <link type="text/css" rel="stylesheet" href="{{ asset('bundles/app/css/local.css') }}">
         {% endblock %}
         {% block javascripts %}
-            {% javascripts '@jquery_js' '@jqueryui_js' '@bootstrap_js' combine=true output='js/compiled/main.js' %}
-            <script src="{{ asset_url }}"></script>
-            {% endjavascripts %}
+            <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
         {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
@@ -37,6 +35,7 @@
                 <ul class="nav navbar-nav">
                     <li><a href="{{ path('map') }}">Maps</a></li>
                     <li><a href="{{ path('location') }}">Locations</a></li>
+                    <li><a href="{{ path('point') }}">Points</a></li>
                     <li><a href="#">Live</a></li>
                 </ul>
             </div><!-- /.navbar-collapse -->
