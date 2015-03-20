@@ -15,8 +15,8 @@ class PointType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title')
-            ->add('body')
+            ->add('title', 'text', array('label'=> 'Title','required'  => false,'attr' => array('class' => 'form-control')))
+            ->add('body', 'text', array('label'=> 'Popup Content','required'  => false,'attr' => array('class' => 'form-control')))
             ->add('map', 'entity', array('class' => 'AppBundle:Map',
                 'property' => 'title','expanded'=>false,'multiple'=>false,'label'  => 'Select Map', 'required'=> false,'attr' => array('class' =>
                     'form-control'),))
