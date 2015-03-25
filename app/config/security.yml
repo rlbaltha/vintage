@@ -17,7 +17,10 @@ security:
             form_login:
                 provider: fos_userbundle
                 csrf_provider: form.csrf_provider
-            logout:       true
+                default_target_path: /map
+            logout:
+                path:   /logout
+                target: /login
             anonymous:    true
 
     access_control:
