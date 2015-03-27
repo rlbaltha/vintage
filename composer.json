@@ -26,7 +26,8 @@
         "components/jquery": "2.1.*",
         "components/jqueryui": "1.11.*",
         "twbs/bootstrap" : "*",
-        "packagist/yuicompressor-bin": "dev-master"
+        "packagist/yuicompressor-bin": "dev-master",
+        "egeloen/ckeditor-bundle": "2.*"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

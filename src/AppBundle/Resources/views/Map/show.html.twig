@@ -27,7 +27,7 @@
 
         <p class="">{{ entity.description|raw }}</p>
         {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-            {% if entity.isOwner(app.user.username) or is_granted('ROLE_ADMIN') %}
+            {% if is_granted('ROLE_ADMIN') %}
                 <a class="btn btn-default pull-right" href="{{ path('mapset_edit', { 'id':
                     entity.id }) }}">Edit</a>
             {% endif %}

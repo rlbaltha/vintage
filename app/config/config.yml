@@ -104,3 +104,24 @@ fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
     firewall_name: main
     user_class: AppBundle\Entity\User
+
+ivory_ck_editor:
+    configs:
+        editor_default:
+            toolbar: "toolbar_default"
+            removePlugins: "elementspath,contextmenu,liststyle,tabletools"
+            allowedContent: 'p h2 h3 h4 img{text-align,margin-left}(*); a[!href,target]{*}(*); table th tr td strong em; ol ul li span(*){font-size,font-family,color,background-color}; img[*]{*}; iframe{*}[*];'
+            disableNativeSpellChecker: false
+            height: 300
+        editor_simple:
+            toolbar: "toolbar_simple"
+            removePlugins: "elementspath,contextmenu,liststyle,tabletools"
+            allowedContent: 'p h2 h3 h4 img{text-align,margin-left}(*); a[!href,target]{*}(*); table th tr td strong em; ol ul li span(*); img[*]{*}; iframe{*}[*];'
+            disableNativeSpellChecker: false
+            height: 150
+
+    toolbars:
+        configs:
+            toolbar_default: [ ['Bold','Italic','Underline','Strike','JustifyLeft','JustifyCenter','JustifyRight','TextColor','BGColor','FontSize'],['Link','Unlink','NumberedList','BulletedList','Outdent','Indent','Image','MediaEmbed'],[ 'Undo', 'Redo','RemoveFormat'] ]
+            toolbar_simple: [ ['Bold','Italic','Underline','Strike'],['Link','Unlink'],['NumberedList','BulletedList']]
+
