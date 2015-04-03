@@ -5,13 +5,13 @@
         <div class="list-group">
             <a href="{{ path('location_show', { 'id': entity.id }) }}" class="list-group-item active">
                 <h4 class="list-group-item-heading">{{ entity.title }}</h4>
-                <p class="list-group-item-text">{{ entity.description }}</p>
+                <p class="list-group-item-text">{{ entity.description|raw }}</p>
             </a>
         </div>
     {% endfor %}
 
     <a href="{{ path('location_new') }}">
-        Create a new entry
+        Create a new location
     </a>
 
     {% endblock %}

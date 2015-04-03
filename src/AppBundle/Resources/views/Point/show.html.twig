@@ -3,27 +3,17 @@
 {% block body -%}
     <h1>Point</h1>
 
-    <table class="record_properties">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ entity.id }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ entity.title }}</td>
-            </tr>
-            <tr>
-                <th>Body</th>
-                <td>{{ entity.body }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="list-group">
+        <a href="{{ path('point_show', { 'id': entity.id }) }}" class="list-group-item active">
+            <h4 class="list-group-item-heading">{{ entity.title }}</h4>
+            <p class="list-group-item-text">{{ entity.body|raw }}</p>
+        </a>
+    </div>
 
         <ul class="record_actions">
     <li>
         <a href="{{ path('point') }}">
-            Back to the list
+            List points
         </a>
     </li>
     <li>
