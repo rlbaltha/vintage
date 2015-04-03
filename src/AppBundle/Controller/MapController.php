@@ -214,7 +214,7 @@ class MapController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('map_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('map'));
         }
 
         return array(

@@ -3,10 +3,18 @@
 {% block body -%}
     {% for entity in entities %}
         <div class="list-group">
-            <a href="{{ path('map_show', { 'id': entity.id }) }}" class="list-group-item"  style="color: white;background-image: url('http://media.columbiamissourian.com/multimedia/2012/08/15/media/SEC_Athens_037_t_w600_h475.jpg')">
+            <a href="{{ path('map_show', { 'id': entity.id }) }}" class="list-group-item"  style="color: white;background-image: url('{{ entity.background }}')">
                 <h4 class="list-group-item-heading" style="color: white;">{{ entity.title }}</h4>
-                <p class="list-group-item-text">{{ entity.description }}</p>
+                <p class="list-group-item-text">{{ entity.description }}
+
+                </p>
             </a>
+            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                {% if is_granted('ROLE_USER') %}
+                    <a class="btn btn-default pull-right" href="{{ path('map_edit', { 'id':
+                        entity.id }) }}">Edit</a>
+                {% endif %}
+            {% endif %}
         </div>
     {% endfor %}
 
