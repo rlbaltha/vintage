@@ -9,8 +9,12 @@
             $('#map_canvas').gmap().bind('init', function () {
                 $.getJSON('{{ path('json', {'map':entity.id}) }}', function (data) {
                     $.each(data, function (i, marker) {
+                        var min = .999998;
+                        var max = 1.000001;
+                        var lat = marker.latitude * (Math.random() * (max - min) + min);
+                        var long = marker.longitude * (Math.random() * (max - min) + min);
                         $('#map_canvas').gmap('addMarker', {
-                            'position': new google.maps.LatLng(marker.latitude, marker.longitude),
+                            'position': new google.maps.LatLng(lat,long),
                             'bounds': true
                         }).click(function () {
                             $('#map_canvas').gmap('openInfoWindow', {'content': marker.content}, this);

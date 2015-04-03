@@ -16,7 +16,7 @@ class LocationType extends AbstractType
     {
         $builder
             ->add('lat', 'text', array('label'=> 'Latitute','required'  => false,'attr' => array('class' => 'form-control')))
-            ->add('lng', 'text', array('label'=> 'Longitude with','required'  => false,'attr' => array('class' => 'form-control')))
+            ->add('lng', 'text', array('label'=> 'Longitude','required'  => false,'attr' => array('class' => 'form-control')))
             ->add('title', 'text', array('label'=> 'Title','required'  => false,'attr' => array('class' => 'form-control')))
             ->add('description', 'textarea', array('label'=> 'Description','required'  => false,'attr' => array('class' => 'form-control')))
         ;

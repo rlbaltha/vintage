@@ -7,10 +7,15 @@
                 <h4 class="list-group-item-heading">{{ entity.title }}</h4>
                 <p class="list-group-item-text">{{ entity.description|raw }}</p>
             </a>
+            {% if is_granted('ROLE_USER') %}
+                <a class="btn btn-default form-control" href="{{ path('location_edit', { 'id':
+                    entity.id }) }}">Edit</a>
+            {% endif %}
         </div>
+
     {% endfor %}
 
-    <a href="{{ path('location_new') }}">
+    <a class="btn btn-default form-control" href="{{ path('location_new') }}">
         Create a new location
     </a>
 

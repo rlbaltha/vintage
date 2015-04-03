@@ -10,6 +10,12 @@
         {% block javascripts %}
             <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
             <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+            <script language="javascript">
+                $(document).ready(function()
+                {
+                    $("button:submit").addClass("btn btn-default form-control margin-top");
+                });
+            </script>
         {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
@@ -38,7 +44,6 @@
                         <li><a href="{{ path('location') }}">Locations</a></li>
                     {% endif %}
                     <li><a href="{{ path('point') }}">Points</a></li>
-                    <li><a href="#">Live</a></li>
                     <li>
                         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                             <a href="{{ path('fos_user_security_logout') }}">
