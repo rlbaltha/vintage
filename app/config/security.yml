@@ -20,7 +20,7 @@ security:
                 default_target_path: /home
             logout:
                 path:   /logout
-                target: /login
+                target: /register
             anonymous:    true
 
     access_control:
