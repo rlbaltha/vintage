@@ -21,6 +21,7 @@
         "incenteev/composer-parameter-handler": "~2.0",
         "friendsofsymfony/user-bundle": "~2.0@dev",
         "jms/serializer-bundle": "0.13.*@dev",
+        "jms/security-extra-bundle": "dev-master",
         "oyejorge/less.php": "~1.5",
         "vich/uploader-bundle": "0.9.0",
         "components/jquery": "2.1.*",
