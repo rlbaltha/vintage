@@ -39,6 +39,7 @@ class LocationController extends Controller
     /**
      * Creates a new Location entity.
      *
+     * @Secure(roles="ROLE_ADMIN")
      * @Route("/", name="location_create")
      * @Method("POST")
      * @Template("AppBundle:Location:new.html.twig")
@@ -85,6 +86,7 @@ class LocationController extends Controller
     /**
      * Displays a form to create a new Location entity.
      *
+     * @Secure(roles="ROLE_ADMIN")
      * @Route("/new", name="location_new")
      * @Method("GET")
      * @Template()
@@ -128,6 +130,7 @@ class LocationController extends Controller
     /**
      * Displays a form to edit an existing Location entity.
      *
+     * @Secure(roles="ROLE_ADMIN")
      * @Route("/{id}/edit", name="location_edit")
      * @Method("GET")
      * @Template()
@@ -173,6 +176,7 @@ class LocationController extends Controller
     /**
      * Edits an existing Location entity.
      *
+     * @Secure(roles="ROLE_ADMIN")
      * @Route("/{id}", name="location_update")
      * @Method("PUT")
      * @Template("AppBundle:Location:edit.html.twig")
@@ -206,6 +210,7 @@ class LocationController extends Controller
     /**
      * Deletes a Location entity.
      *
+     * @Secure(roles="ROLE_ADMIN")
      * @Route("/{id}", name="location_delete")
      * @Method("DELETE")
      */
