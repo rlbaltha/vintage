@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Response;
+use JMS\SecurityExtraBundle\Annotation\Secure;
 use AppBundle\Entity\Map;
 use AppBundle\Form\MapType;
 
@@ -39,6 +40,7 @@ class MapController extends Controller
     /**
      * Creates a new Map entity.
      *
+     * @Secure(roles="ROLE_ADMIN")
      * @Route("/", name="map_create")
      * @Method("POST")
      * @Template("AppBundle:Map:new.html.twig")
@@ -85,6 +87,7 @@ class MapController extends Controller
     /**
      * Displays a form to create a new Map entity.
      *
+     * @Secure(roles="ROLE_ADMIN")
      * @Route("/new", name="map_new")
      * @Method("GET")
      * @Template()
@@ -148,6 +151,7 @@ class MapController extends Controller
     /**
      * Displays a form to edit an existing Map entity.
      *
+     * @Secure(roles="ROLE_ADMIN")
      * @Route("/{id}/edit", name="map_edit")
      * @Method("GET")
      * @Template()
@@ -193,6 +197,7 @@ class MapController extends Controller
     /**
      * Edits an existing Map entity.
      *
+     * @Secure(roles="ROLE_ADMIN")
      * @Route("/{id}", name="map_update")
      * @Method("PUT")
      * @Template("AppBundle:Map:edit.html.twig")
@@ -226,6 +231,7 @@ class MapController extends Controller
     /**
      * Deletes a Map entity.
      *
+     * @Secure(roles="ROLE_ADMIN")
      * @Route("/{id}", name="map_delete")
      * @Method("DELETE")
      */
