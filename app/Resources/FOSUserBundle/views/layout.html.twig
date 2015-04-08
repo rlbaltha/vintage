@@ -42,6 +42,9 @@
         {% if 'register' in app.request.attributes.get('_route') %}
             Already have an account?  <a href="{{ path('fos_user_security_login') }}">Login</a>
         {% endif %}
+        {% if 'confirmed' in app.request.attributes.get('_route') %}
+            <a href="{{ path('homepage') }}">Let's get started</a>
+        {% endif %}
     </div>
 </div>
 
