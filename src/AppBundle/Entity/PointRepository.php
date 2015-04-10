@@ -12,4 +12,9 @@ use Doctrine\ORM\EntityRepository;
  */
 class PointRepository extends EntityRepository
 {
+    public function findMine($user)
+    {
+        return $this->getEntityManager()
+            ->createQuery('SELECT p from AppBundle:Point p WHERE p.user = ?1 ORDER BY p.')->setParameter('1',$user)->getResult();
+    }
 }

@@ -6,7 +6,7 @@
 
     <script language="javascript">
         $(document).ready(function () {
-            $('#map_canvas').gmap().bind('init', function () {
+            $('#map_canvas').gmap('option', 'zoom', 10).bind('init', function () {
                 $.getJSON('{{ path('json', {'map':entity.id}) }}', function (data) {
                     $.each(data, function (i, marker) {
                         var min = .999998;

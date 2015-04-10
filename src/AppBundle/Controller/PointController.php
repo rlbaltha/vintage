@@ -36,6 +36,27 @@ class PointController extends Controller
             'entities' => $entities,
         );
     }
+
+    /**
+     * Lists all Point entities.
+     *
+     * @Route("/mypoints", name="mypoints")
+     * @Method("GET")
+     * @Template("AppBundle:Point:index.html.twig")
+     */
+    public function myPointsAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->getUser();
+
+        $entities = $em->getRepository('AppBundle:Point')->findMine($user);
+
+        return array(
+            'entities' => $entities,
+        );
+    }
+
+
     /**
      * Creates a new Point entity.
      *
