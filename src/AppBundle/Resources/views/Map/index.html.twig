@@ -15,7 +15,7 @@
         </div>
     {% endfor %}
 
-        {% if is_granted('ROLE_USER') %}
+        {% if is_granted('ROLE_ADMIN') %}
             <a class="btn btn-default form-control" href="{{ path('map_new') }}">
                 Create a new map
             </a>

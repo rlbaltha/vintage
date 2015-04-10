@@ -49,6 +49,12 @@ class Point
 
 
     /**
+     * @ORM\ManyToOne(targetEntity="User")
+     */
+    protected $user;
+
+
+    /**
      * Get id
      *
      * @return integer 
@@ -150,4 +156,39 @@ class Point
     {
         return $this->location;
     }
+
+    /**
+     * Set user
+     *
+     * @param \AppBundle\Entity\User $user
+     * @return Point
+     */
+    public function setUser(\AppBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \AppBundle\Entity\User 
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    public function isOwner($user)
+    {
+        if($user == $this->user){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+
 }

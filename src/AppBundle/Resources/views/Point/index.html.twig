@@ -6,10 +6,10 @@
     {% for entity in entities %}
         <div class="list-group">
             <a href="{{ path('point_show', { 'id': entity.id }) }}" class="list-group-item active">
-                <h4 class="list-group-item-heading">{{ entity.title }}</h4>
+                <h4 class="list-group-item-heading">{{ entity.title }} ({{ entity.user.username }})</h4>
                 <p class="list-group-item-text">{{ entity.body|raw }}</p>
             </a>
-            {% if is_granted('ROLE_USER') %}
+            {% if entity.user.username == app.user.username %}
                 <a class="btn btn-default form-control" href="{{ path('point_edit', { 'id':
                     entity.id }) }}">Edit</a>
             {% endif %}
