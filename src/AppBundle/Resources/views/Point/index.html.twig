@@ -10,7 +10,7 @@
         </button>
         <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
             {% for map in maps %}
-                <li><a role="menuitem" tabindex="-1" href="#">{{ map.title }}</a></li>
+                <li><a role="menuitem" tabindex="-1" href="{{ path('point_new', { 'mapid': map.id }) }}">{{ map.title }}</a></li>
             {% endfor %}
         </ul>
     </div>

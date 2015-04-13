@@ -119,6 +119,10 @@ class PointController extends Controller
     public function newAction($mapid)
     {
         $entity = new Point();
+        $em = $this->getDoctrine()->getManager();
+        $map = $em->getRepository('AppBundle:Map')->find($mapid);
+        $entity->setMap($map);
+
         $form   = $this->createCreateForm($entity);
 
         return array(
