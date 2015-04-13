@@ -31,9 +31,11 @@ class PointController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('AppBundle:Point')->findAll();
+        $maps = $em->getRepository('AppBundle:Map')->findAll();
 
         return array(
             'entities' => $entities,
+            'maps' => $maps,
         );
     }
 
@@ -50,9 +52,11 @@ class PointController extends Controller
         $user = $this->getUser();
 
         $entities = $em->getRepository('AppBundle:Point')->findMine($user);
+        $maps = $em->getRepository('AppBundle:Map')->findAll();
 
         return array(
             'entities' => $entities,
+            'maps' => $maps,
         );
     }
 
@@ -108,11 +112,11 @@ class PointController extends Controller
     /**
      * Displays a form to create a new Point entity.
      *
-     * @Route("/new", name="point_new")
+     * @Route("/{mapid}/new", name="point_new")
      * @Method("GET")
      * @Template()
      */
-    public function newAction()
+    public function newAction($mapid)
     {
         $entity = new Point();
         $form   = $this->createCreateForm($entity);

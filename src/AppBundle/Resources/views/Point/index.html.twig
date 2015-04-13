@@ -16,9 +16,12 @@
         </div>
     {% endfor %}
     {% if is_granted('ROLE_USER') %}
-        <a class="btn btn-default form-control" href="{{ path('point_new') }}">
-            Create a new point on a map
+
+        {% for map in maps %}
+        <a class="btn btn-default form-control" href="{{ path('point_new', { 'mapid' : map.id}) }}">
+            Create a new point on {{ map.title }} map.
         </a>
+        {% endfor %}
     {% endif %}
 
     {% endblock %}
