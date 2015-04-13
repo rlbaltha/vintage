@@ -35,6 +35,13 @@ class Point
      * @ORM\Column(name="body", type="text", nullable=true)
      */
     private $body;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="status", type="integer")
+     */
+    private $status = 0 ;
     
 
     /**
@@ -250,5 +257,28 @@ class Point
     public function getUpdated()
     {
         return $this->updated;
+    }
+
+    /**
+     * Set status
+     *
+     * @param integer $status
+     * @return Point
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return integer 
+     */
+    public function getStatus()
+    {
+        return $this->status;
     }
 }

@@ -30,7 +30,7 @@ class PointController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('AppBundle:Point')->findAll();
+        $entities = $em->getRepository('AppBundle:Point')->findReleased();
         $maps = $em->getRepository('AppBundle:Map')->findAll();
 
         return array(
@@ -52,6 +52,28 @@ class PointController extends Controller
         $user = $this->getUser();
 
         $entities = $em->getRepository('AppBundle:Point')->findMine($user);
+        $maps = $em->getRepository('AppBundle:Map')->findAll();
+
+        return array(
+            'entities' => $entities,
+            'maps' => $maps,
+        );
+    }
+
+    /**
+     * Lists all unreleased Point entities.
+     *
+     * @Secure(roles="ROLE_ADMIN")
+     * @Route("/pending", name="pending")
+     * @Method("GET")
+     * @Template("AppBundle:Point:index.html.twig")
+     */
+    public function pendingAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->getUser();
+
+        $entities = $em->getRepository('AppBundle:Point')->findPending();
         $maps = $em->getRepository('AppBundle:Map')->findAll();
 
         return array(
@@ -234,6 +256,33 @@ class PointController extends Controller
             'delete_form' => $deleteForm->createView(),
         );
     }
+
+
+    /**
+     * Releases an existing Point entity.
+     *
+     * @Secure(roles="ROLE_ADMIN")
+     * @Route("/{id}/release", name="point_release")
+     * @Method("GET")
+     * @Template("AppBundle:Point:index.html.twig")
+     */
+    public function releaseAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('AppBundle:Point')->find($id);
+        $entity->setStatus(1);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Point entity.');
+        }
+
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('point'));
+    }
+
+
     /**
      * Deletes a Point entity.
      *
