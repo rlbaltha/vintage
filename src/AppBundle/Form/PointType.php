@@ -17,9 +17,13 @@ class PointType extends AbstractType
         $builder
             ->add('title', 'text', array('label'=> 'Title','required'  => false,'attr' => array('class' => 'form-control')))
             ->add('body', 'ckeditor', array('config_name' => 'editor_default','label'  => 'Content for popup',))
-            ->add('location', 'entity', array('class' => 'AppBundle:Location',
-                'property' => 'title','expanded'=>false,'multiple'=>false,'label'  => 'Select Location', 'required'=> false,'attr' => array('class' =>
-                    'form-control'),))
+            ->add('location', 'entity', array('class' => 'AppBundle:Location','property'=>'title','query_builder' =>
+                function(\AppBundle\Entity\LocationRepository $er) use ($options) {
+                    return $er->createQueryBuilder('l')
+                        ->where('l.id = :id')
+                        ->setParameter('id', 1);
+                }, 'expanded'=>false,'multiple'=>false, 'label'  => 'Select Labels', 'attr' => array('class' => 'form-control'),
+            ))
         ;
     }
     
