@@ -3,8 +3,20 @@
 {% block body -%}
     <h1>Point list</h1>
 
+    <div class="dropdown">
+        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+            Create a new point
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+            {% for map in maps %}
+                <li><a role="menuitem" tabindex="-1" href="#">{{ map.title }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+
     {% for entity in entities %}
-        <div class="list-group">
+        <div class="list-group" style="margin-top: 10px;;">
             <a href="{{ path('point_show', { 'id': entity.id }) }}" class="list-group-item active">
                 <h4 class="list-group-item-heading">{{ entity.title }} ({{ entity.user.username }})</h4>
 
@@ -18,17 +30,7 @@
     {% endfor %}
     {% if is_granted('ROLE_USER') %}
 
-        <div class="dropdown">
-            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-                Create a new point
-                <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                {% for map in maps %}
-                    <li><a role="menuitem" tabindex="-1" href="#">{{ map.title }}</a></li>
-                {% endfor %}
-            </ul>
-        </div>
+
 
 
     {% endif %}
