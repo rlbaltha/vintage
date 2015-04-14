@@ -26,8 +26,7 @@
 
 <body>
 
-
-<div class="col-sm-offset-4 col-lg-4" style="margin-top: 20px;">
+<div class="col-sm-4 col-xs-12 center" style="margin-top: 20px;">
     {% for type, messages in app.session.flashBag.all %}
         {% for message in messages %}
             <div class="{{ type }}">

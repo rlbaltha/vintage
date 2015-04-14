@@ -1,2 +1,48 @@
-body {background-color: lightcyan}
+body {background-color: #d3d3d3}
 .margin-top {margin-top: 5px;}
+
+
+
+.center {
+    float: none;
+    margin-left:auto; margin-right: auto;
+}
+
+@media (max-width: 1199px) {
+    .navbar .nav > li > a {
+        padding-left: 7px;
+        padding-right: 7px;
+    }
+
+}
+
+@media (max-width: 920px) {
+    .navbar .nav > li > a {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
+}
+
+
+@media (max-width: 800px) {
+    .navbar .nav > li > a {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
+}
+
+
+@media (min-width: 768px) {
+    .navbar > .container .navbar-brand {
+        margin-left:-30px;
+    }
+}
+
+@media (max-width: 767px) {
+    .navbar > .container .navbar-brand {
+        margin-left:-12px;
+    }
+
+}
