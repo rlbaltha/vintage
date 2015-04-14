@@ -32,7 +32,7 @@
         <p class="">{{ entity.description|raw }}</p>
         {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
             {% if is_granted('ROLE_ADMIN') %}
-                <a class="btn btn-default pull-right" href="{{ path('mapset_edit', { 'id':
+                <a class="btn btn-default pull-right" href="{{ path('map_edit', { 'id':
                     entity.id }) }}">Edit</a>
             {% endif %}
         {% endif %}
