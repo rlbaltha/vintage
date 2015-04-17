@@ -45,9 +45,8 @@
                     {% if is_granted('ROLE_ADMIN') %}
                         <li><a href="{{ path('location') }}">Locations</a></li>
                     {% endif %}
-                    <li><a href="{{ path('point') }}">Points</a></li>
-                    <li><a href="{{ path('mypoints') }}">My Points</a></li>
-                    <li><a title='Upload' href="{{ path('file_new') }}"><i class="glyphicon glyphicon-upload"></i> Upload</a></li>
+                    <li><a href="{{ path('file') }}">Points</a></li>
+                    <li><a href="{{ path('myuploads') }}">My Points</a></li>
                     <li>
                         <a href="{{ path('fos_user_security_logout') }}">
                             {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}

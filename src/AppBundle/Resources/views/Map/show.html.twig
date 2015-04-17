@@ -13,11 +13,18 @@
                         var max = 1.000001;
                         var lat = marker.latitude * (Math.random() * (max - min) + min);
                         var long = marker.longitude * (Math.random() * (max - min) + min);
+                        var imageid = marker.id;
+                        var imagetemp = '{{ path('file_get', { 'id': 'imageid' }) }}';
+                        var imagepath = imagetemp.replace('imageid', imageid)
+
+                        var content = '<p>' + marker.title + '</p><img src="' + imagepath + '" class="img-responsive" alt="' + marker.title + '">' +
+                                '<p>' +
+                        marker.content + '</p>';
                         $('#map_canvas').gmap('addMarker', {
                             'position': new google.maps.LatLng(lat,long),
                             'bounds': true
                         }).click(function () {
-                            $('#map_canvas').gmap('openInfoWindow', {'content': marker.content}, this);
+                            $('#map_canvas').gmap('openInfoWindow', {'content': content}, this);
                         });
                     });
                 });

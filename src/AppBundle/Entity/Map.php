@@ -43,9 +43,9 @@ class Map
     private $background;
 
     /**
-     * @ORM\OneToMany(targetEntity="Point", mappedBy="map")
+     * @ORM\OneToMany(targetEntity="Location", mappedBy="map")
      */
-    protected $points;
+    protected $locations;
 
 
     /**
@@ -165,5 +165,38 @@ class Map
     public function getPoints()
     {
         return $this->points;
+    }
+
+    /**
+     * Add locations
+     *
+     * @param \AppBundle\Entity\Location $locations
+     * @return Map
+     */
+    public function addLocation(\AppBundle\Entity\Location $locations)
+    {
+        $this->locations[] = $locations;
+
+        return $this;
+    }
+
+    /**
+     * Remove locations
+     *
+     * @param \AppBundle\Entity\Location $locations
+     */
+    public function removeLocation(\AppBundle\Entity\Location $locations)
+    {
+        $this->locations->removeElement($locations);
+    }
+
+    /**
+     * Get locations
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getLocations()
+    {
+        return $this->locations;
     }
 }

@@ -8,15 +8,33 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class FileType extends AbstractType
 {
+    protected $options;
+
+    public function __construct (array $options)
+    {
+        $this->options = $options;
+    }
+
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $options = $this->options;
         $builder
-            ->add('file','file', array('label'  => 'File to Upload', 'attr' => array('class' => '')))
-            ->add('name','text', array('attr' => array('class' => 'text form-control', 'placeholder' => 'Name of your file'),))
+            ->add('file','file', array('label'  => 'Image to Upload', 'attr' => array('class' => '')))
+            ->add('title', 'text', array('label'=> 'Title','required'  => false,'attr' => array('class' => 'form-control')))
+            ->add('body', 'textarea', array('label'=> 'Text for point','required'  => false,'attr' => array('class' => 'form-control')))
+            ->add('location', 'entity', array('class' => 'AppBundle:Location','property'=>'title','query_builder' =>
+                function(\AppBundle\Entity\LocationRepository $er) use ($options) {
+                    $mapid = $options['mapid'] ;
+                    return $er->createQueryBuilder('l')
+                        ->join("l.map", 'm')
+                        ->where('m.id = :id')
+                        ->setParameter('id', $mapid);
+                }, 'expanded'=>false,'multiple'=>false, 'label'  => 'Select Location', 'attr' => array('class' => 'form-control'),
+            ))
         ;
     }
     

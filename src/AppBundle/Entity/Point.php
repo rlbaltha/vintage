@@ -45,12 +45,6 @@ class Point
     
 
     /**
-     * @ORM\ManyToOne(targetEntity="Map", inversedBy="points")
-     */
-    protected $map;
-
-
-    /**
      * @ORM\ManyToOne(targetEntity="Location", inversedBy="points")
      */
     protected $location;

@@ -12,4 +12,23 @@ use Doctrine\ORM\EntityRepository;
  */
 class FileRepository extends EntityRepository
 {
+    public function findMine($user)
+    {
+        return $this->getEntityManager()
+            ->createQuery('SELECT f from AppBundle:File f WHERE f.user = ?1 ORDER BY f.created DESC')->setParameter('1',$user)->getResult();
+    }
+
+    public function findReleased()
+    {
+        $pending = 1;
+        return $this->getEntityManager()
+            ->createQuery('SELECT f from AppBundle:File f WHERE f.status = ?1 ORDER BY f.created DESC')->setParameter('1',$pending)->getResult();
+    }
+
+    public function findPending()
+    {
+        $pending = 1;
+        return $this->getEntityManager()
+            ->createQuery('SELECT f from AppBundle:File f WHERE f.status != ?1 ORDER BY f.created DESC')->setParameter('1',$pending)->getResult();
+    }
 }

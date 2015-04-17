@@ -19,6 +19,8 @@ class LocationType extends AbstractType
             ->add('lng', 'text', array('label'=> 'Longitude','required'  => false,'attr' => array('class' => 'form-control')))
             ->add('title', 'text', array('label'=> 'Title','required'  => false,'attr' => array('class' => 'form-control')))
             ->add('description', 'textarea', array('label'=> 'Description','required'  => false,'attr' => array('class' => 'form-control')))
+            ->add('map', 'entity', array('class' => 'AppBundle:Map','property'=>'title','expanded'=>false,'multiple'=>false, 'label'  => 'Select Map',
+                'attr' => array('class' => 'form-control')))
         ;
     }
     

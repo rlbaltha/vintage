@@ -7,6 +7,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\HttpFoundation\Response;
+use JMS\SecurityExtraBundle\Annotation\Secure;
 use AppBundle\Entity\File;
 use AppBundle\Form\FileType;
 
@@ -29,10 +31,12 @@ class FileController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('AppBundle:File')->findAll();
+        $entities = $em->getRepository('AppBundle:File')->findReleased();
+        $maps = $em->getRepository('AppBundle:Map')->findAll();
 
         return array(
             'entities' => $entities,
+            'maps' => $maps,
         );
     }
     /**
@@ -45,6 +49,8 @@ class FileController extends Controller
     public function createAction(Request $request)
     {
         $entity = new File();
+        $user = $this->getUser();
+        $entity->setUser($user);
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
@@ -53,7 +59,7 @@ class FileController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('file_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('myuploads'));
         }
 
         return array(
@@ -69,9 +75,10 @@ class FileController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(File $entity)
+    private function createCreateForm(File $entity, $map)
     {
-        $form = $this->createForm(new FileType(), $entity, array(
+        $options = array('mapid' => $map);
+        $form = $this->createForm(new FileType($options), $entity, array(
             'action' => $this->generateUrl('file_create'),
             'method' => 'POST',
         ));
@@ -84,14 +91,14 @@ class FileController extends Controller
     /**
      * Displays a form to create a new File entity.
      *
-     * @Route("/new", name="file_new")
+     * @Route("/{map}/new", name="file_new")
      * @Method("GET")
      * @Template()
      */
-    public function newAction()
+    public function newAction($map)
     {
         $entity = new File();
-        $form   = $this->createCreateForm($entity);
+        $form   = $this->createCreateForm($entity, $map);
 
         return array(
             'entity' => $entity,
@@ -102,7 +109,7 @@ class FileController extends Controller
     /**
      * Finds and displays a File entity.
      *
-     * @Route("/{id}", name="file_show")
+     * @Route("/{id}/show", name="file_show")
      * @Method("GET")
      * @Template()
      */
@@ -128,7 +135,7 @@ class FileController extends Controller
     /**
      * Finds and displays a File.
      *
-     * @Route("/{id}/get/{filename}", name="file_get", defaults={"filename" = "name.ext"})
+     * @Route("/{id}/get", name="file_get")
      *
      */
     public function getAction($id)
@@ -137,13 +144,9 @@ class FileController extends Controller
         $em = $this->getDoctrine()->getManager();
         $file = $em->getRepository('AppBundle:File')->find($id);
 
-        $name = $file->getName();
-
         $helper = $this->container->get('vich_uploader.templating.helper.uploader_helper');
         $path = $helper->asset($file, 'file');
         $ext = strtolower($file->getExt());
-        $filename = $name . '.' . $ext;
-
 
         $response = new Response();
 
@@ -151,67 +154,15 @@ class FileController extends Controller
         switch ($ext) {
             case "png":
                 $response->headers->set('Content-Type', 'image/png');
-                $response->headers->set('Content-Disposition', 'filename="' . $filename . '"');
                 break;
             case "gif":
                 $response->headers->set('Content-Type', 'image/gif');
-                $response->headers->set('Content-Disposition', 'filename="' . $filename . '"');
                 break;
             case "jpeg":
                 $response->headers->set('Content-Type', 'image/jpeg');
-                $response->headers->set('Content-Disposition', 'filename="' . $filename . '"');
                 break;
             case "jpg":
                 $response->headers->set('Content-Type', 'image/jpeg');
-                $response->headers->set('Content-Disposition', 'filename="' . $filename . '"');
-                break;
-            case "mpeg":
-                $response->headers->set('Content-Type', 'audio/mpeg');
-                $response->headers->set('Content-Disposition', 'filename="' . $filename . '"');
-                break;
-            case "mp3":
-                $response->headers->set('Content-Type', 'audio/mp3');
-                $response->headers->set('Content-Disposition', 'filename="' . $filename . '"');
-                break;
-            case "odt":
-                $response->headers->set('Content-Type', 'application/vnd.oasis.opendocument.text');
-                $response->headers->set('Content-Disposition', 'attachment; filename="' . $filename . '"');
-                break;
-            case "ods":
-                $response->headers->set('Content-Type', 'application/vnd.oasis.opendocument.spreadsheet');
-                $response->headers->set('Content-Disposition', 'attachment; filename="' . $filename . '"');
-                break;
-            case "odp":
-                $response->headers->set('Content-Type', 'application/vnd.oasis.opendocument.presentation');
-                $response->headers->set('Content-Disposition', 'attachment; filename="' . $filename . '"');
-                break;
-            case "doc":
-                $response->headers->set('Content-Type', 'application/vnd.msword');
-                $response->headers->set('Content-Disposition', 'attachment; filename="' . $filename . '"');
-                break;
-            case "docx":
-                $response->headers->set('Content-Type', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
-                $response->headers->set('Content-Disposition', 'attachment; filename="' . $filename . '"');
-                break;
-            case "ppt":
-                $response->headers->set('Content-Type', 'application/vnd.mspowerpoint');
-                $response->headers->set('Content-Disposition', 'attachment; filename="' . $filename . '"');
-                break;
-            case "pptx":
-                $response->headers->set('Content-Type', 'application/vnd.openxmlformats-officedocument.presentationml.presentation');
-                $response->headers->set('Content-Disposition', 'attachment; filename="' . $filename . '"');
-                break;
-            case "xls":
-                $response->headers->set('Content-Type', 'application/vnd.ms-excel');
-                $response->headers->set('Content-Disposition', 'attachment; filename="' . $filename . '"');
-                break;
-            case "xlsx":
-                $response->headers->set('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-                $response->headers->set('Content-Disposition', 'attachment; filename="' . $filename . '"');
-                break;
-            case "pdf":
-                $response->headers->set('Content-Type', 'application/pdf');
-                $response->headers->set('Content-Disposition', 'attachment; filename="' . $filename . '"');
                 break;
             default:
                 $response->headers->set('Content-Type', 'application/octet-stream');
@@ -292,7 +243,7 @@ class FileController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('file_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('file'));
         }
 
         return array(
@@ -343,4 +294,72 @@ class FileController extends Controller
             ->getForm()
         ;
     }
+
+    /**
+     * Lists all Point entities.
+     *
+     * @Route("/myuploads", name="myuploads")
+     * @Method("GET")
+     * @Template("AppBundle:File:index.html.twig")
+     */
+    public function myFilesAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->getUser();
+
+        $entities = $em->getRepository('AppBundle:File')->findMine($user);
+        $maps = $em->getRepository('AppBundle:Map')->findAll();
+
+        return array(
+            'entities' => $entities,
+            'maps' => $maps,
+        );
+    }
+
+    /**
+     * Lists all unreleased Point entities.
+     *
+     * @Secure(roles="ROLE_ADMIN")
+     * @Route("/upload_pending", name="upload_pending")
+     * @Method("GET")
+     * @Template("AppBundle:File:index.html.twig")
+     */
+    public function pendingAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entities = $em->getRepository('AppBundle:File')->findPending();
+        $maps = $em->getRepository('AppBundle:Map')->findAll();
+
+        return array(
+            'entities' => $entities,
+            'maps' => $maps,
+        );
+    }
+
+    /**
+     * Releases an existing Point entity.
+     *
+     * @Secure(roles="ROLE_ADMIN")
+     * @Route("/{id}/release", name="file_release")
+     * @Method("GET")
+     * @Template("AppBundle:File:index.html.twig")
+     */
+    public function releaseAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('AppBundle:File')->find($id);
+        $entity->setStatus(1);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find File entity.');
+        }
+
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('file'));
+    }
+
+
 }

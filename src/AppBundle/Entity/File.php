@@ -12,6 +12,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="AppBundle\Entity\FileRepository")
+ * @Vich\Uploadable
  */
 class File
 {
@@ -28,26 +29,13 @@ class File
     /**
      * @Assert\File(
      *     maxSize="10M",
-     *     mimeTypes={"audio/mpeg", "application/vnd.ms-office", "image/gif", "image/png", "image/jpeg", "image/pjpeg", "application/pdf",
-     * "application/vnd.oasis.opendocument.text", "application/vnd.oasis.opendocument.presentation",
-     * "application/vnd.oasis.opendocument.spreadsheet", "application/msword", "application/mspowerpoint",
-     * "application/excel", "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-     * "application/vnd.openxmlformats-officedocument.presentationml.presentation", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-     * "application/zip"}
+     *     mimeTypes={"image/gif", "image/png", "image/jpeg", "image/pjpeg"}
      * )
      * @Vich\UploadableField(mapping="property_file", fileNameProperty="path")
      *
      * @var File $file
      */
     protected $file;
-
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=255)
-     */
-    private $name;
 
     /**
      * @var string
@@ -62,6 +50,35 @@ class File
      * @ORM\Column(name="access", type="integer")
      */
     private $access = 0 ;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="title", type="string", length=255)
+     */
+    private $title;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="body", type="text", nullable=true)
+     */
+    private $body;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="status", type="integer")
+     */
+    private $status = 0 ;
+
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Location", inversedBy="files")
+     */
+    protected $location;
+
 
     /**
      * @ORM\Column(type="datetime")
@@ -259,5 +276,97 @@ class File
     public function getFile()
     {
         return $this->file;
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     * @return File
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string 
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Set body
+     *
+     * @param string $body
+     * @return File
+     */
+    public function setBody($body)
+    {
+        $this->body = $body;
+
+        return $this;
+    }
+
+    /**
+     * Get body
+     *
+     * @return string 
+     */
+    public function getBody()
+    {
+        return $this->body;
+    }
+
+    /**
+     * Set status
+     *
+     * @param integer $status
+     * @return File
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return integer 
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * Set location
+     *
+     * @param \AppBundle\Entity\Location $location
+     * @return File
+     */
+    public function setLocation(\AppBundle\Entity\Location $location = null)
+    {
+        $this->location = $location;
+
+        return $this;
+    }
+
+    /**
+     * Get location
+     *
+     * @return \AppBundle\Entity\Location 
+     */
+    public function getLocation()
+    {
+        return $this->location;
     }
 }

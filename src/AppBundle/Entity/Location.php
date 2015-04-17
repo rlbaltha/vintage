@@ -49,10 +49,22 @@ class Location
      */
     private $description;
 
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Map", inversedBy="locations")
+     */
+    protected $map;
+
     /**
      * @ORM\OneToMany(targetEntity="Point", mappedBy="location")
      */
     protected $points;
+
+
+    /**
+     * @ORM\OneToMany(targetEntity="File", mappedBy="location")
+     */
+    protected $files;
 
 
     /**
@@ -195,5 +207,63 @@ class Location
     public function getPoints()
     {
         return $this->points;
+    }
+
+
+
+    /**
+     * Add files
+     *
+     * @param \AppBundle\Entity\File $files
+     * @return Location
+     */
+    public function addFile(\AppBundle\Entity\File $files)
+    {
+        $this->files[] = $files;
+
+        return $this;
+    }
+
+    /**
+     * Remove files
+     *
+     * @param \AppBundle\Entity\File $files
+     */
+    public function removeFile(\AppBundle\Entity\File $files)
+    {
+        $this->files->removeElement($files);
+    }
+
+    /**
+     * Get files
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getFiles()
+    {
+        return $this->files;
+    }
+
+    /**
+     * Set map
+     *
+     * @param \AppBundle\Entity\Map $map
+     * @return Location
+     */
+    public function setMap(\AppBundle\Entity\Map $map = null)
+    {
+        $this->map = $map;
+
+        return $this;
+    }
+
+    /**
+     * Get map
+     *
+     * @return \AppBundle\Entity\Map 
+     */
+    public function getMap()
+    {
+        return $this->map;
     }
 }
