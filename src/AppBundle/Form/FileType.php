@@ -23,7 +23,7 @@ class FileType extends AbstractType
     {
         $options = $this->options;
         $builder
-            ->add('file','file', array('label'  => 'Image to Upload', 'attr' => array('class' => '')))
+            ->add('file','file', array('label'  => 'Image to Upload', 'attr' => array('class' => 'btn-file')))
             ->add('title', 'text', array('label'=> 'Title','required'  => false,'attr' => array('class' => 'form-control')))
             ->add('body', 'textarea', array('label'=> 'Text for point','required'  => false,'attr' => array('class' => 'form-control')))
             ->add('location', 'entity', array('class' => 'AppBundle:Location','property'=>'title','query_builder' =>

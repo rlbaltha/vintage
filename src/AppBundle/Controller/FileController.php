@@ -42,16 +42,16 @@ class FileController extends Controller
     /**
      * Creates a new File entity.
      *
-     * @Route("/", name="file_create")
+     * @Route("/{map}/create", name="file_create")
      * @Method("POST")
      * @Template("AppBundle:File:new.html.twig")
      */
-    public function createAction(Request $request)
+    public function createAction(Request $request, $map)
     {
         $entity = new File();
         $user = $this->getUser();
         $entity->setUser($user);
-        $form = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity, $map);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -79,7 +79,7 @@ class FileController extends Controller
     {
         $options = array('mapid' => $map);
         $form = $this->createForm(new FileType($options), $entity, array(
-            'action' => $this->generateUrl('file_create'),
+            'action' => $this->generateUrl('file_create', array('map' => $map)),
             'method' => 'POST',
         ));
 
@@ -186,12 +186,13 @@ class FileController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('AppBundle:File')->find($id);
+        $map = $entity->getLocation()->getMap()->getId();
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find File entity.');
         }
 
-        $editForm = $this->createEditForm($entity);
+        $editForm = $this->createEditForm($entity, $map);
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
@@ -208,9 +209,10 @@ class FileController extends Controller
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createEditForm(File $entity)
+    private function createEditForm(File $entity, $map)
     {
-        $form = $this->createForm(new FileType(), $entity, array(
+        $options = array('mapid' => $map);
+        $form = $this->createForm(new FileType($options), $entity, array(
             'action' => $this->generateUrl('file_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
@@ -231,13 +233,14 @@ class FileController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('AppBundle:File')->find($id);
+        $map = $entity->getLocation()->getMap()->getId();
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find File entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
-        $editForm = $this->createEditForm($entity);
+        $editForm = $this->createEditForm($entity, $map);
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {

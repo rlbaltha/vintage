@@ -31,3 +31,4 @@ security:
         - { path: ^/map/, role: ROLE_USER }
         - { path: ^/location/, role: ROLE_USER }
         - { path: ^/point/, role: ROLE_USER }
+        - { path: ^/file/, role: ROLE_USER }
