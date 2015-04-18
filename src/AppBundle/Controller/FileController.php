@@ -278,7 +278,7 @@ class FileController extends Controller
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('file'));
+        return $this->redirect($this->generateUrl('myuploads'));
     }
 
     /**
