@@ -1,7 +1,7 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h1>Points</h1>
+    <h1>{% if 'myuploads' in app.request.attributes.get('_route')  %}My {% endif %}Points</h1>
 
     <div class="dropdown">
         <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">

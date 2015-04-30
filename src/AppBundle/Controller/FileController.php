@@ -32,7 +32,7 @@ class FileController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('AppBundle:File')->findReleased();
-        $maps = $em->getRepository('AppBundle:Map')->findAll();
+        $maps = $em->getRepository('AppBundle:Map')->findMaps();
 
         return array(
             'entities' => $entities,
@@ -311,7 +311,7 @@ class FileController extends Controller
         $user = $this->getUser();
 
         $entities = $em->getRepository('AppBundle:File')->findMine($user);
-        $maps = $em->getRepository('AppBundle:Map')->findAll();
+        $maps = $em->getRepository('AppBundle:Map')->findMaps();
 
         return array(
             'entities' => $entities,

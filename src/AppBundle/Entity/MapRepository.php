@@ -17,4 +17,10 @@ class MapRepository extends EntityRepository
         return $this->getEntityManager()
             ->createQuery('SELECT l.lat as latitude, l.lng as longitude, f.title, f.id, f.body as content FROM AppBundle:File f JOIN f.location l WHERE l.map = ?1 and f.status = 1')->setParameter('1', $map)->getResult();
     }
+
+    public function findMaps()
+    {
+        return $this->getEntityManager()
+            ->createQuery('SELECT m FROM AppBundle:Map m order by m.title ASC')->getResult();
+    }
 }

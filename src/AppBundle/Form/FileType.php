@@ -32,6 +32,7 @@ class FileType extends AbstractType
                     return $er->createQueryBuilder('l')
                         ->join("l.map", 'm')
                         ->where('m.id = :id')
+                        ->orderBy('l.title')
                         ->setParameter('id', $mapid);
                 }, 'expanded'=>false,'multiple'=>false, 'label'  => 'Select Location', 'attr' => array('class' => 'form-control'),
             ))

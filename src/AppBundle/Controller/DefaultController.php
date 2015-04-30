@@ -14,4 +14,12 @@ class DefaultController extends Controller
     {
         return $this->render('@App/Home/home.html.twig');
     }
+
+    /**
+     * @Route("/suggest", name="suggestpage")
+     */
+    public function suggestAction()
+    {
+        return $this->render('@App/Home/suggest.html.twig');
+    }
 }
